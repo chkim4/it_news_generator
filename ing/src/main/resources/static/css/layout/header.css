@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow {height: 10vh;}
+
+/* 모든 a 태그의 height 설정 */
+.logo-wrapper {height: 200%}
+.nav-link dropdown-toggle {height: 200%}
+.dropdown-item {height: 200%}
+
+.logo {height: 100%;}
