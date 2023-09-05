@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+:root {
+  --theme-color: #333;
+  --btn-color:gray;
+   font-weight: bold;
+   font-color: black;
+}
+
+.btn{
+    background-color: #d9d9d9;
+    color: #333;
+    font-weight: bold;
+    border-radius: 12%;
+}

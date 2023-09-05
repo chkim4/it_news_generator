@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+@import 'common.css';
+
+.logo{
+	max-width: 100%; 
+	border: 0;
+}
+
+.form-group{
+	text-align: center;
+}
+
+.form-control-user{
+	display:inline-block;
+	width: 70%;
+	align: center;
+}
+
+.btn{
+	display:inline-block;
+}
