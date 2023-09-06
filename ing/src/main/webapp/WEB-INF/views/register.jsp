@@ -24,7 +24,7 @@
 			                                       <img class="logo" src="img/logo-black.png" alt = "로고"/>
 			                                    </div> 
 			                                    <br/>
-			                                    <form class="user" action="#" method = "post">
+			                                    <form class="user" action="/register" method = "post">
 			                                        <div class="form-group">
 			                                            <input type="email" class="form-control form-control-user"
 			                                                id="exampleInputEmail" 
@@ -40,7 +40,7 @@
 			                                            <input type = "button" class = "btn" value = "검사">    
 			                                        </div>
 			                                        <br/>
-			                                        <input type="submit" class="btn btn-user btn-block" value="로그인">
+			                                        <input type="submit" class="btn btn-user btn-block" value="회원 가입">
 			                                        <hr>
 			                                    </form>
 			                                    <hr>

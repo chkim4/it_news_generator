@@ -24,7 +24,7 @@
 			                                       <img class="logo" src="img/logo-black.png" alt = "로고"/>
 			                                    </div> 
 			                                    <br/>
-			                                    <form class="user" action="#" method = "post">
+			                                    <form class="user" action="/login-proc" method = "post">
 			                                        <div class="form-group">
 			                                            <input type="email" class="form-control form-control-user"
 			                                                id="exampleInputEmail" 

@@ -1,33 +1,35 @@
-// 테스트용 파일이라서 별도 주석X
+/**
+ * jsp 파일 동작 확인 등 테스트를 위한 Controller
+ */
 
 package com.ing.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = "/blank")
+    @GetMapping(value = "/blank")
     public String blank() {
         System.out.println("blank"); 
         return "layout/blank";
     }
 
-    @RequestMapping(value = "/header")
+    @GetMapping(value = "/header")
     public String header() {
         System.out.println("header");
         return "layout/header";
     }
 
-    @RequestMapping(value = "/nav")
+    @GetMapping(value = "/nav")
     public String nav() {
         System.out.println("nav");
         
         return "layout/nav";
     }
 
-    @RequestMapping(value = "/footer")
+    @GetMapping(value = "/footer")
     public String footer() {
         System.out.println("footer");
                 
