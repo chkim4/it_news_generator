@@ -1,6 +1,11 @@
 package com.ing.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +24,15 @@ import lombok.ToString;
 @ToString
 @Entity(name="scrap")
 public class Scrap {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "scrapSEQ")
+    @SequenceGenerator(sequenceName = "SCRAP_SEQ", name = "scrapSEQ", allocationSize = 1)
+    @Column(name = "scrap_id")
     private Integer ScrapId; 
-    private Integer memberId; 
+    
+    @Column(name = "member_id")
+    private Integer memberId;
+    
+    @Column(name = "article_id")
     private Integer ArticleId;  
 }

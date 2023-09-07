@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+/* 에러 시 출력하는 아이콘('X') 에 적용 */
+.error-img{
+    width: 40%;
+}
+
+/* 뉴스를 조회할 수 없을 때 띄우는 문구를 감싸는 <div>에 적용 */
+.error-msg-div{
+    text-align: center; 
+    font-size: 200%
+}

@@ -26,7 +26,7 @@ public class CustomSpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers( "/login", "/register", "/login-proc").permitAll()
+                .antMatchers( "/login", "/register", "/login-proc", "/home", "/test").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin()

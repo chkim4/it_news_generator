@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>테스트용 페이지</title>
+    <%@ include file = "cdn/lib-common.jsp" %>
     
 </head>
 <body>
     <h1>WELCOME BACK TO SPRING BOOT!!!!!</h1>
-	<button text="click" onclick="test()"></button>
+	<button onclick="test()">axios 테스트</button>
 
-	
-	
 <script>
     function test() {
         axios.get('http://localhost:8081/home')
