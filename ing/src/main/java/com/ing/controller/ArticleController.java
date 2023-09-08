@@ -50,8 +50,14 @@ public class ArticleController {
             requestDate = LocalDate.now();
         }
         else {
-            requestDate = LocalDate.parse(date);
-            isToday = LocalDate.now().isEqual(requestDate);
+            
+            try {
+                requestDate = LocalDate.parse(date);
+                isToday = LocalDate.now().isEqual(requestDate);
+            }
+            catch(DateTimeParseException e) {                
+                throw new DateTimeParseException("잘못된 날짜 값을 입력하였습니다.", e.getParsedString(), e.getErrorIndex());
+            }
         }
     
         // 오늘 영상 조회하는 기능 구현해야 함.
