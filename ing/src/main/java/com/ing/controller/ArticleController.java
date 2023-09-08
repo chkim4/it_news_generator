@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ing.entity.Article;
+import com.ing.entity.ArticleSummary;
 import com.ing.service.ArticleService;
 
 /**
@@ -31,9 +31,7 @@ public class ArticleController {
     public String test(
             @RequestParam(value = "date" , required = false) String date,
             Model model) throws DateTimeParseException { 
-        
-        System.out.println("news");
-        
+
         Boolean isToday = false;
         LocalDate requestDate = null; 
         String view = "news-no";
@@ -50,15 +48,17 @@ public class ArticleController {
             requestDate = LocalDate.now();
         }
         else {
-            
             try {
                 requestDate = LocalDate.parse(date);
                 isToday = LocalDate.now().isEqual(requestDate);
             }
             catch(DateTimeParseException e) {                
-                throw new DateTimeParseException("잘못된 날짜 값을 입력하였습니다.", e.getParsedString(), e.getErrorIndex());
+                throw e;
             }
         }
+        
+        // 테스트를 위해 넣은 코드. 테스트 후 삭제 요망
+        isToday = false;
     
         // 오늘 영상 조회하는 기능 구현해야 함.
         if(isToday) {
@@ -66,12 +66,16 @@ public class ArticleController {
         }
         
         else { 
-            List<Article> articles = articleService.findAllByCreatedAt(requestDate);
-                
+            
+            String requestDateStr = requestDate.toString();
+       
+            List<ArticleSummary> articles = articleService.findAllByCreatedAtOrderByOrd(requestDateStr);
+                                   
+            
             if (!articles.isEmpty()) {
-                view = "news?date=" + requestDate.toString();
+                view = "news?date=" + requestDateStr;
             }
-        }
+        } 
         return view;
     } 
 }

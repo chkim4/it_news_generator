@@ -36,6 +36,6 @@ public class Article {
     private Integer ord;
     private String site;
     
-    @Column(name = "created_at", columnDefinition = "DATE")
+    @Column(name = "created_at")
     private LocalDate createdAt;
 }

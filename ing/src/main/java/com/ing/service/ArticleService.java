@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ing.entity.Article;
+import com.ing.entity.ArticleSummary;
 import com.ing.repository.ArticleRepository;
 
 /**
@@ -19,9 +19,9 @@ public class ArticleService {
     private ArticleRepository articleRepository;
     
      
-    public List<Article> findAllByCreatedAt(LocalDate date) {
+    public List<ArticleSummary> findAllByCreatedAtOrderByOrd(String date) {
         
-        return articleRepository.findAllByCreatedAt(date);
+        return articleRepository.findAllByCreatedAtOrderByOrd(date);
     } 
     
        
