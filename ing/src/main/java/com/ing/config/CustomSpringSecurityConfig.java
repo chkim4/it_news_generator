@@ -26,7 +26,7 @@ public class CustomSpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers( "/login", "/register", "/login-proc", "/home", "/test").permitAll()
+                .antMatchers( "/login", "/register", "/login-proc", "/home", "/test", "/error").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
@@ -34,7 +34,7 @@ public class CustomSpringSecurityConfig {
                 .loginProcessingUrl("/login-proc")
                 .usernameParameter("email")
                 .passwordParameter("pass")
-                .defaultSuccessUrl("/main", true)
+                .defaultSuccessUrl("/news", true)
                 .failureUrl("/auth-error")
                 .permitAll()
             .and()

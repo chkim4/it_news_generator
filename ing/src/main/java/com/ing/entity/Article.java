@@ -1,6 +1,6 @@
 package com.ing.entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +36,6 @@ public class Article {
     private Integer ord;
     private String site;
     
-    @Column(name = "created_at")
-    private Date createdAt;
+    @Column(name = "created_at", columnDefinition = "DATE")
+    private LocalDate createdAt;
 }

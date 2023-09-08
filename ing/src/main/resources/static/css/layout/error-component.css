@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+
+.text-center{
+	text-align: center; 
+}
+
+
 /* 에러 시 출력하는 아이콘('X') 에 적용 */
 .error-img{
     width: 40%;
