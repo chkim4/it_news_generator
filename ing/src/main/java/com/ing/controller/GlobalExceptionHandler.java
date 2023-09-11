@@ -12,12 +12,12 @@ public class GlobalExceptionHandler {
        
    /**
     * 모든 Controller에서 발생한 모든 예외를 한꺼번에 처리하는 메소드 <br>
-    * @param exception Controller로부터 받아온 예외 객체
+    * @param e Controller로부터 받아온 예외 객체
     * @return 예외 처리 페이지
     */
     @ExceptionHandler(Exception.class)
-    public String exceptionHandler(Exception exception) {
-     
+    public String exceptionHandler(Exception e) {
+        System.out.println(e.getMessage());
         return "redirect:/error";
     }
 }

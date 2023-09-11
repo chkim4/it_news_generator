@@ -1,9 +1,8 @@
 package com.ing.service;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ing.entity.ArticleSummary;
@@ -19,9 +18,9 @@ public class ArticleService {
     private ArticleRepository articleRepository;
     
      
-    public List<ArticleSummary> findAllByCreatedAtOrderByOrd(String date) {
+    public Page<ArticleSummary> findAllByCreatedAtOrderByOrd(String date, Pageable pagable) {
         
-        return articleRepository.findAllByCreatedAtOrderByOrd(date);
+        return articleRepository.findAllByCreatedAtOrderByOrd(date, pagable);
     } 
     
        

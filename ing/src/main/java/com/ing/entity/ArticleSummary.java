@@ -7,7 +7,7 @@ package com.ing.entity;
 
 public interface ArticleSummary {
     public Integer getArticleId();
+    public Integer getOrd();
     public String getSummary(); 
     public String getUrl(); 
-    
 }

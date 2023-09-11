@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+@import '../common.css';
+
+.page-link {
+  color: var(--theme-color);
+}

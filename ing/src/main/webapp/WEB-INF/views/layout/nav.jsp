@@ -22,7 +22,7 @@
                 String date = today.plusDays(-1*i).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString(); 
             %>
 	            <li class="nav-item">
-	                <a class="nav-link" href="#">
+	                <a class="nav-link" href="/news?date=<%=date%>">
 	                    <span class = "nav-text">
 	                        <%=date%>
 	                    </span>

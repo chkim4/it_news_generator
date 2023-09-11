@@ -1,8 +1,9 @@
 package com.ing.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,15 +19,14 @@ import com.ing.entity.ArticleSummary;
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     
-    @Query(value = "SELECT summary " + 
+    @Query(value = "SELECT article_id, summary, url, ord " + 
                    "FROM article " + 
                    "WHERE TRUNC(created_at) = to_date(:requestDate, 'YYYY-MM-DD') " + 
-                   "ORDER BY ord", nativeQuery = true)
-    public List<ArticleSummary> findAllByCreatedAtOrderByOrd(@Param(value = "requestDate") String date);
+                   "ORDER BY ord", 
+           countQuery = "SELECT article_id, summary, url, ord " + 
+                        "FROM article " + 
+                        "WHERE TRUNC(created_at) = to_date(:requestDate, 'YYYY-MM-DD')",         
+           nativeQuery = true)
+    public Page<ArticleSummary> findAllByCreatedAtOrderByOrd(@Param(value = "requestDate") String date,  Pageable pageable);
+
 }
-//@Query(value = "SELECT summary " + 
-//        "FROM article " + 
-//        "WHERE TRUNC(created_at) = to_date(:requestDate, 'YYYY-MM-DD') " + 
-//        "ORDER BY ord", nativeQuery = true)
-//public List<ArticleSummary> findAllByCreatedAtOrderByOrd(@Param(value = "requestDate") LocalDate date);
-//}
