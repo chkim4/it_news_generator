@@ -29,10 +29,8 @@
                         <%@ include file = "layout/news-table-api.jsp" %>
                     </div>  
                     <br/>
-                     <!-- 화면 최하단 페이지 이동 버튼 -->
-                    
-                    <%@ include file = "layout/pagination-api.jsp" %>
-                   
+                     <!-- 화면 최하단 페이지 이동 버튼 -->                    
+                    <%@ include file = "layout/pagination-api.jsp" %>                   
                 </div>
 	        </div>
         </div>

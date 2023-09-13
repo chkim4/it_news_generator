@@ -15,7 +15,7 @@
         let previousPageURL = defaultUrl + "&page=" + prevPage;
           
         tagStr += '<li class="page-item">' + 
-                      '<a class="page-link" href="javascript:getPageData(' + prevPage + ', \'' + date +'\')" aria-label="Previous">' + 
+                      '<a class="page-link" onclick="getPageData(' + prevPage + ', \'' + date +'\')" aria-label="Previous">' + 
                            '<span aria-hidden="true">&laquo;</span> ' + 
                            '<span class="sr-only">Previous</span>' + 
                        '</a>' + 
@@ -28,7 +28,7 @@
        let currentPageURL = defaultUrl + "&page=" + p;
        
         tagStr += '<li class="page-item">' + 
-                      '<a class="page-link" href="javascript:getPageData(' + p + ', \'' + date + '\')">' + 
+                      '<a class="page-link" onclick="getPageData(' + p + ', \'' + date + '\')">' + 
                            (p+1) + 
                       '</a>' + 
                   '</li>';    
@@ -40,7 +40,7 @@
         let nextPageURL = defaultUrl + "&page=" + lastPage;
       
         tagStr += '<li class="page-item">' + 
-                  '<a class="page-link" href="javascript:getPageData(' + lastPage + ', \'' + date + '\')" aria-label="Next">' + 
+                  '<a class="page-link" onclick="getPageData(' + lastPage + ', \'' + date + '\')" aria-label="Next">' + 
                        '<span aria-hidden="true">&raquo;</span> ' + 
                        '<span class="sr-only">Next</span>' + 
                    '</a>' + 
