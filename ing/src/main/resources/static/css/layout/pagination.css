@@ -5,3 +5,7 @@
 .page-link {
   color: var(--theme-color);
 }
+
+nav ul {
+    justify-content: center; 
+}

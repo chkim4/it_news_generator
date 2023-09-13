@@ -32,6 +32,11 @@ public final class NewsUtils {
      *      
      *    isNextSetExists: 현재 세트 기준으로 다음 세트 존재 여부 (Boolean)
      *        화면에 다음 세트로 이동하는 버튼 출력 여부 판단 시 활용
+     *    
+     *    defaultUrl: 페이지 클릭 시 이동할 URL 중 page 쿼리스트링만 제외
+     *        ex. "/news?date=2017-01-13&page=7"로 이동하고자 하는 경우
+     *            defaultUrl = "/news?date=2017-01-13"으로 할당
+     * 
      * </pre>
      * @param <T>
      * 
@@ -39,18 +44,35 @@ public final class NewsUtils {
      * @param pageUnit: 한 페이지에 출력할 기사 개수
      * @return pagination에 필요한 데이터를 저장한 HashMap
      */
-    public static <T> HashMap<String, Object> getPaginationData(Page<T> page, int pageUnit){
+    public static <T> HashMap<String, Object> getPaginationData(Page<T> page, int pageUnit, String defaultUrl){
         int currentPage = page.getNumber();
         int totalPages = page.getTotalPages();
         Boolean isNextSetExists = true;
-                        
+     
+        /*
+        * pageUnit = 10이라면, currentPage = 0 ~ 9 사이 (첫페이지라고 가정할 시)
+        * 
+        * [{(0~9) + 10}/10] * 10 = 10   
+        */    
         int lastPage = (currentPage + pageUnit)/pageUnit*pageUnit;
         
+        
+       /*
+        * pageUnit = 10, totalPages = 5, currentPage = 3 일 경우
+        * 
+        * lastPage는 10이 아닌 5가 되어야 함  
+        */
         if (lastPage >= totalPages){
            lastPage = totalPages;
            isNextSetExists = false;                  
         }
        
+      /*
+       * pageUnit = 10, currentPage = 0~9 일 경우
+       * 
+       * firstPage는 0이 되어야 함
+       * [(0~9)/10]*10 = 0  
+       */        
        int firstPage = currentPage/pageUnit*pageUnit;
        
        HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -59,7 +81,7 @@ public final class NewsUtils {
        resultMap.put("currentPage", page.getNumber());
        resultMap.put("lastPage", lastPage);
        resultMap.put("isNextSetExists", isNextSetExists);
-       resultMap.put("totalPages", page.getTotalPages());
+       resultMap.put("defaultUrl", defaultUrl);
          
        return resultMap;
     }

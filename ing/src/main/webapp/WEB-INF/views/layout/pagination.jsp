@@ -1,15 +1,8 @@
- <!-- 화면 최하단 페이지 이동 버튼 -->
+ <!-- 화면 최하단 페이지 이동 버튼(누를 시 새로운 페이지 요청. 페이지 로딩O) -->
+ 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<!-- 
-    defaultUrl: 페이지 클릭 시 이동할 URL 중 page 쿼리스트링만 제외
-        ex. "/news?date=2017-01-13&page=7"로 이동하고자 하는 경우
-            defaultUrl = "/news?date=2017-01-13"으로 할당해야 함
-    
-      나머지는 NewsUtils.java 파일 내 getPaginationData 메소드에 정리되어 있으므로 참고
- -->
 
 <head>
     <link rel="stylesheet" href="css/layout/pagination.css">
@@ -19,7 +12,7 @@
 	int firstPage = (Integer) request.getAttribute("firstPage");
 	int currentPage = (Integer) request.getAttribute("currentPage");
 	int lastPage = (Integer) request.getAttribute("lastPage");
-	String defaultUrl = request.getParameter("defaultUrl");
+	String defaultUrl = (String) request.getAttribute("defaultUrl");
 	Boolean isNextSetExists = (Boolean) request.getAttribute("isNextSetExists");
 %>
 
