@@ -1,0 +1,57 @@
+/**
+ * Scrap 테이블 관련 Controller
+ */
+
+package com.ing.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.ing.entity.Scrap;
+import com.ing.service.ScrapService;
+import com.ing.utils.ScrapUtils;
+
+@Controller
+public class ScrapController {
+    
+    @Autowired
+    ScrapService scrapService;
+
+    /**
+     * 스크랩 추가 
+     * 
+     * @param articleId: 스크랩하려는 기사의 PK 값 (cf. memberId는 Spring Security의 ContextHolder 활용)
+     * @return 스크랩 저장 여부
+     * @throws NumberFormatException - memberId, articleId를 String에서 Integer로 변환하는 중에 발생할 수 있는 예외
+     */
+    @PostMapping(value = "/scrap")
+    @ResponseBody
+    public Boolean insertScrap(
+            @RequestParam(value = "articleId" , required = false) Integer articleId) 
+            throws NumberFormatException{
+          
+        return scrapService.insertScrap(ScrapUtils.getScrapInstance(articleId));
+    }
+
+    /**
+     * 스크랩 삭제 
+     * 
+     * @param articleId: 스크랩하려는 기사의 PK 값 (cf. memberId는 Spring Security의 ContextHolder 활용)
+     * @return 스크랩 저장 여부
+     * @throws NumberFormatException - memberId, articleId를 String에서 Integer로 변환하는 중에 발생할 수 있는 예외
+     */
+    @DeleteMapping(value = "/scrap")
+    @ResponseBody
+    public Boolean deleteScrap(
+            @RequestParam(value = "articleId" , required = false) Integer articleId) 
+                    throws NumberFormatException{
+        
+        Scrap scrap = ScrapUtils.getScrapInstance(articleId);
+        
+        return scrapService.deleteScrap(scrap.getMemberId(), scrap.getArticleId());
+    }
+}

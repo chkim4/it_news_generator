@@ -8,9 +8,16 @@
 }
 
 
-.btn, .sourceBtn{
+.btn {
     background-color: #d9d9d9;
     color: #333;
+    font-weight: bold;
+    border-radius: 12%;
+}
+
+input[type="button"][class="btn delete-btn"] {
+    background-color: #c82333;
+    color: white;
     font-weight: bold;
     border-radius: 12%;
 }

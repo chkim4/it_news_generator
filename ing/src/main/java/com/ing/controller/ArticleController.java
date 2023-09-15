@@ -25,7 +25,6 @@ import com.ing.utils.NewsUtils;
 
 /**
  * Article 테이블 관련 Controller
- * 
  */
 @Controller
 public class ArticleController {
@@ -119,6 +118,7 @@ public class ArticleController {
             defaultUrl = "/news?date="+ requestDateStr;
             Page<ArticleSummary> page = articleService.findAllByCreatedAtOrderByOrd(requestDateStr, pageable);
             List<ArticleSummary> articles = page.getContent();
+            
          
             // 해당 일자에 기사가 있을 경우 뉴스 요약 페이지 (news-summary) 로 이동
             if (!articles.isEmpty()) {                
@@ -126,6 +126,7 @@ public class ArticleController {
                 model.addAttribute("date", requestDateStr);
                 model.addAllAttributes(NewsUtils.getPaginationData(page, DEFAULT_PAGE_UNIT, defaultUrl));
                 
+
                 view = "news-summary";
             }
         } 

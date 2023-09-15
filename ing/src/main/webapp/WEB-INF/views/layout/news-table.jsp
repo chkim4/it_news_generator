@@ -6,7 +6,7 @@
            uri="http://java.sun.com/jstl/core_rt" %>
 
 <head>  
-    <link rel="stylesheet" href="css/layout/pagination.css">
+    <link rel="stylesheet" href="css/layout/news-table.css">
 </head>
 
 <div class="table-responsive">
@@ -25,9 +25,11 @@
                  <td>${article.ord}</td>
                  <td>${article.summary}</td>
                  <td><input type = "button" class = "btn" value = "기사 원본" onclick="window.open('${article.url}');"></td>
-                 <td><input type = "button" class = "btn" value = "스크랩"></td>
+                 <td><input type = "button" class = "btn" value = "스크랩" onclick="insertScrap('${article.articleId}', this)"></td>
              </tr>      
             </c:forEach> 
         </tbody>
     </table>
 </div>
+<script src="js/news-table.js"></script>
+
