@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ing.entity.Article;
+import com.ing.entity.Member;
 import com.ing.entity.Scrap;
 import com.ing.repository.ScrapRepository;
 
@@ -15,7 +17,7 @@ public class ScrapService {
     
     @Autowired
     ScrapRepository scrapRepository;
-    
+  
     /**
      * 스크랩 정보 저장
      * 
@@ -35,9 +37,9 @@ public class ScrapService {
      * @return 스크랩 삭제 성공 여부 (delete 메소드 완료 후 반환하는 삭제된 레코드 개수 활용)
      */
     @Transactional
-    public Boolean deleteScrap(int memberId, int articleId){       
+    public Boolean deleteScrapByMemberAndArticle(Member member, Article article){       
         
-        Long deletedRecord = scrapRepository.deleteByMemberIdAndArticleId(memberId, articleId);
+        Long deletedRecord = scrapRepository.deleteScrapByMemberAndArticle(member, article);
         
         return deletedRecord > 0;
     } 

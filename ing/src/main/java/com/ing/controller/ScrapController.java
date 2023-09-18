@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ing.entity.Scrap;
+import com.ing.service.ArticleService;
+import com.ing.service.MemberService;
 import com.ing.service.ScrapService;
 import com.ing.utils.ScrapUtils;
 
@@ -20,6 +22,15 @@ public class ScrapController {
     
     @Autowired
     ScrapService scrapService;
+
+    @Autowired
+    MemberService memberService;
+
+    @Autowired
+    ArticleService articleService;
+    
+    @Autowired
+    ScrapUtils scrapUtils;
 
     /**
      * 스크랩 추가 
@@ -33,8 +44,8 @@ public class ScrapController {
     public Boolean insertScrap(
             @RequestParam(value = "articleId" , required = false) Integer articleId) 
             throws NumberFormatException{
-          
-        return scrapService.insertScrap(ScrapUtils.getScrapInstance(articleId));
+        
+        return scrapService.insertScrap(scrapUtils.getScrapInstance(articleId));
     }
 
     /**
@@ -47,11 +58,12 @@ public class ScrapController {
     @DeleteMapping(value = "/scrap")
     @ResponseBody
     public Boolean deleteScrap(
-            @RequestParam(value = "articleId" , required = false) Integer articleId) 
+            @RequestParam(value = "articleId" , required = false) Integer articleId)
                     throws NumberFormatException{
         
-        Scrap scrap = ScrapUtils.getScrapInstance(articleId);
+        Scrap scrap = scrapUtils.getScrapInstance(articleId);
         
-        return scrapService.deleteScrap(scrap.getMemberId(), scrap.getArticleId());
+        return scrapService.deleteScrapByMemberAndArticle(scrap.getMember(), scrap.getArticle());
+        
     }
 }

@@ -2,6 +2,8 @@
  * 현재 페이지에 해당하는 페이지 세트를 화면에 출력
  * 각 파라미터 값은 NewsUtils.java의 getPaginationData 메소드 참고 
  */
+ 
+ 
  function getCurrentSet(firstPage, lastPage, defaultUrl, isNextSetExists, date){
 
     let tagStr = "";
@@ -93,11 +95,18 @@ function getTableData(articles){
                         'onclick = "window.open(\'' + articles[i].url + '\');">' + 
                     '</td>';
         
-        tagStr +=   '<td><input type = "button" class = "btn" value = "스크랩"' + 
-                              ' onclick= "#" >' + 
-                    '</td>';
-       
-        tagStr += "</tr>";
+        tagStr +=   '<td>';  
+        
+        if (articles[i].memberId == null) {
+            
+            tagStr += '<input type = "button" class = "btn" value = "스크랩" onclick="insertScrap(\'' + articles[i].articleId + '\', this)">'; 
+        }
+        else {
+            
+            tagStr += '<input type = "button" class = "btn delete-btn" value = "삭제" onclick="deleteScrap(\'' + articles[i].articleId + '\', this)">';
+        }
+        
+        tagStr += '</td></tr>';  
     }
     
     document.getElementById("table-body").innerHTML = tagStr; 

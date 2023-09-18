@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ing.entity.ArticleSummary;
+import com.ing.entity.ArticleWithScrap;
 import com.ing.service.ArticleService;
 import com.ing.service.VideoService;
 import com.ing.utils.NewsUtils;
@@ -69,6 +70,7 @@ public class ArticleController {
         LocalDate requestDate = null; 
         String view = "news-no";
         String defaultUrl = "";
+        int memberId = Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName());
         
         if (date == null) {
             isToday = true;
@@ -94,8 +96,8 @@ public class ArticleController {
                
                // 한 페이지 당 출력하는 기사 개수를 VIDEO_PAGE_SIZE 개로 조정하기 위함
                PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), VIDEO_PAGE_SIZE);
-               Page<ArticleSummary> page = articleService.findAllByCreatedAtOrderByOrd(requestDateStr, pageRequest);
-               List<ArticleSummary> articles = page.getContent();
+               Page<ArticleWithScrap> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageRequest);
+               List<ArticleWithScrap> articles = page.getContent();
           
                if (!articles.isEmpty()) {           
                    
@@ -116,9 +118,9 @@ public class ArticleController {
         else { 
           
             defaultUrl = "/news?date="+ requestDateStr;
-            Page<ArticleSummary> page = articleService.findAllByCreatedAtOrderByOrd(requestDateStr, pageable);
-            List<ArticleSummary> articles = page.getContent();
-            
+            Page<ArticleWithScrap> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageable);
+            List<ArticleWithScrap> articles = page.getContent();
+                      
          
             // 해당 일자에 기사가 있을 경우 뉴스 요약 페이지 (news-summary) 로 이동
             if (!articles.isEmpty()) {                
@@ -152,6 +154,7 @@ public class ArticleController {
     
         LocalDate requestDate = LocalDate.parse(date); 
         String requestDateStr = requestDate.toString(); 
+        int memberId = Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName());
               
         // NewsUtils.getPaginationData 참고
         String defaultUrl = "/news-today-api?date="+ requestDateStr;
@@ -159,8 +162,8 @@ public class ArticleController {
         // 클라이언트가 요청한 기사 및 페이지네이션 정보
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
             
-        Page<ArticleSummary> page = articleService.findAllByCreatedAtOrderByOrd(requestDateStr, pageable);
-        List<ArticleSummary> articles = page.getContent();
+        Page<ArticleWithScrap> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageable);
+        List<ArticleWithScrap> articles = page.getContent();
           
         // JavaScript에서는 Java의 객체를 사용할 수 없으므로 출력할 기사들을 JSON String 형태로 전환
         ObjectMapper mapper = new ObjectMapper();

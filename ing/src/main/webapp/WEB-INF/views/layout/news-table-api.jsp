@@ -27,7 +27,8 @@
     </table>
 </div>
 
-<script src="js/pagination-api.js"></script>
+<script src="js/common-scrap.js"></script>
+<script src="js/pagination-api.js" data-insertScrap = insertScrap data-deleteScrap = deleteScrap></script>
 <script>
 	$(document).ready(getTableData(<%=request.getAttribute("articles")%>)); 
 </script>

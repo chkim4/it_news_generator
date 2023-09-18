@@ -3,6 +3,8 @@ package com.ing.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ing.entity.Article;
+import com.ing.entity.Member;
 import com.ing.entity.Scrap;
 
 /**
@@ -12,6 +14,5 @@ import com.ing.entity.Scrap;
 public interface ScrapRepository extends JpaRepository<Scrap, Integer> {
     
     // 삭제한 레코드 개수 반환
-    public Long deleteByMemberIdAndArticleId(int memberId, int articleId);
-
+    public Long deleteScrapByMemberAndArticle(Member member, Article article);
 }

@@ -81,6 +81,11 @@ public class MemberService {
         Member member = memberRepository.findByEmail(email); 
         
         return member;    
+    } 
+    
+    
+    public Member findByMemberId(int memberId) {
+        return memberRepository.findByMemberId(memberId);
     }
    
 }

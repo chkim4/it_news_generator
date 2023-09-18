@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
@@ -32,9 +34,11 @@ public class Scrap {
     @Column(name = "scrap_id")
     private Integer scrapId; 
     
-    @Column(name = "member_id")
-    private Integer memberId;
-    
-    @Column(name = "article_id")
-    private Integer articleId;  
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private Article article;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 }

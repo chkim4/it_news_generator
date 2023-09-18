@@ -25,11 +25,21 @@
                  <td>${article.ord}</td>
                  <td>${article.summary}</td>
                  <td><input type = "button" class = "btn" value = "기사 원본" onclick="window.open('${article.url}');"></td>
-                 <td><input type = "button" class = "btn" value = "스크랩" onclick="insertScrap('${article.articleId}', this)"></td>
+                 <td>
+                 <c:choose>
+	               <c:when test = "${article.memberId == null}">
+                     <input type = "button" class = "btn" value = "스크랩" onclick="insertScrap('${article.articleId}', this)">	                 
+	               </c:when>                    
+                   
+                   <c:otherwise>
+                     <input type = "button" class = "btn delete-btn" value = "삭제" onclick="deleteScrap('${article.articleId}', this)">                   
+                   </c:otherwise>               
+                 </c:choose>               
+                 </td>
              </tr>      
             </c:forEach> 
         </tbody>
     </table>
 </div>
-<script src="js/news-table.js"></script>
+<script src="js/common-scrap.js"></script>
 

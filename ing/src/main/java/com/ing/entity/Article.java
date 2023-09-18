@@ -1,12 +1,14 @@
 package com.ing.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude={"scrap"})
 @Entity(name="article")
 public class Article {
     
@@ -37,5 +39,9 @@ public class Article {
     private String site;
     
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    private LocalDate createdAt; 
+    
+    @OneToMany(mappedBy="article")
+    private List<Scrap> scrap;
+
 }
