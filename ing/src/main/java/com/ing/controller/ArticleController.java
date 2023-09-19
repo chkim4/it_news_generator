@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ing.entity.ArticleWithScrap;
 import com.ing.service.ArticleService;
 import com.ing.service.VideoService;
 import com.ing.utils.NewsUtils;
+import com.ing.vo.ArticleScrapVO;
 
 /**
  * Article 테이블 관련 Controller
@@ -30,14 +30,7 @@ import com.ing.utils.NewsUtils;
 @Controller
 public class ArticleController {
     
-    // 뉴스 영상 페이지에서 한 페이지에 출력할 기사의 개수 
-    private static final int VIDEO_PAGE_SIZE = 5;
-    
-    // 뉴스 요약 페이지에서 한 페이지에 출력할 기사의 개수 
-    private static final int SUMMARY_PAGE_SIZE = 10;
-    
-    // 관련된 모든 페이지 하단에 표시할 페이지 개수  (ex. 10일 경우 하단 페이지 하단: 1~10, 11 ~ 20,...) 
-    private static final int DEFAULT_PAGE_UNIT = 10;
+   
 
     @Autowired
     ArticleService articleService;
@@ -64,7 +57,7 @@ public class ArticleController {
     @GetMapping(value = "/news")
     public String main(
             @RequestParam(value = "date" , required = false) String date,
-            Model model, @PageableDefault(size = SUMMARY_PAGE_SIZE) Pageable pageable) throws DateTimeParseException, JsonProcessingException { 
+            Model model, @PageableDefault(size = NewsUtils.SUMMARY_PAGE_SIZE) Pageable pageable) throws DateTimeParseException, JsonProcessingException { 
         
         Boolean isToday = false;
         LocalDate requestDate = null; 
@@ -95,9 +88,9 @@ public class ArticleController {
                defaultUrl = "/news-today-api";
                
                // 한 페이지 당 출력하는 기사 개수를 VIDEO_PAGE_SIZE 개로 조정하기 위함
-               PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), VIDEO_PAGE_SIZE);
-               Page<ArticleWithScrap> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageRequest);
-               List<ArticleWithScrap> articles = page.getContent();
+               PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), NewsUtils.VIDEO_PAGE_SIZE);
+               Page<ArticleScrapVO> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageRequest);
+               List<ArticleScrapVO> articles = page.getContent();
           
                if (!articles.isEmpty()) {           
                    
@@ -105,7 +98,7 @@ public class ArticleController {
                    String articlesJson = mapper.writeValueAsString(articles);
 
                    model.addAttribute("articles", articlesJson);
-                   model.addAllAttributes(NewsUtils.getPaginationData(page, DEFAULT_PAGE_UNIT, defaultUrl));
+                   model.addAllAttributes(NewsUtils.getPaginationData(page, NewsUtils.DEFAULT_PAGE_UNIT, defaultUrl));
                } 
                
                // 영상은 있으나 기사가 전부 삭제되었을 경우를 대비해서 location 추가만 따로 배치
@@ -118,15 +111,15 @@ public class ArticleController {
         else { 
           
             defaultUrl = "/news?date="+ requestDateStr;
-            Page<ArticleWithScrap> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageable);
-            List<ArticleWithScrap> articles = page.getContent();
+            Page<ArticleScrapVO> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageable);
+            List<ArticleScrapVO> articles = page.getContent();
                       
          
             // 해당 일자에 기사가 있을 경우 뉴스 요약 페이지 (news-summary) 로 이동
             if (!articles.isEmpty()) {                
                 model.addAttribute("articles", articles);
                 model.addAttribute("date", requestDateStr);
-                model.addAllAttributes(NewsUtils.getPaginationData(page, DEFAULT_PAGE_UNIT, defaultUrl));
+                model.addAllAttributes(NewsUtils.getPaginationData(page, NewsUtils.DEFAULT_PAGE_UNIT, defaultUrl));
                 
 
                 view = "news-summary";
@@ -150,7 +143,7 @@ public class ArticleController {
     public HashMap<String, Object> getNextArticles(
             @RequestParam(value = "date" , required = false) String date,
             @RequestParam(value = "page" , required = false) Integer requestPage,
-            @PageableDefault(size = VIDEO_PAGE_SIZE) Pageable pageable) throws DateTimeParseException, JsonProcessingException { 
+            @PageableDefault(size = NewsUtils.VIDEO_PAGE_SIZE) Pageable pageable) throws DateTimeParseException, JsonProcessingException { 
     
         LocalDate requestDate = LocalDate.parse(date); 
         String requestDateStr = requestDate.toString(); 
@@ -162,14 +155,14 @@ public class ArticleController {
         // 클라이언트가 요청한 기사 및 페이지네이션 정보
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
             
-        Page<ArticleWithScrap> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageable);
-        List<ArticleWithScrap> articles = page.getContent();
+        Page<ArticleScrapVO> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageable);
+        List<ArticleScrapVO> articles = page.getContent();
           
         // JavaScript에서는 Java의 객체를 사용할 수 없으므로 출력할 기사들을 JSON String 형태로 전환
         ObjectMapper mapper = new ObjectMapper();
         String articlesJson = mapper.writeValueAsString(articles);
                 
-        resultMap.putAll(NewsUtils.getPaginationData(page, DEFAULT_PAGE_UNIT, defaultUrl));
+        resultMap.putAll(NewsUtils.getPaginationData(page, NewsUtils.DEFAULT_PAGE_UNIT, defaultUrl));
         resultMap.put("articles", articlesJson);
         
         // 클라이언트에 저장 후, 클라이언트가 요청할 때 참고할 정보

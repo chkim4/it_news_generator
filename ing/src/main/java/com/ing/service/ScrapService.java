@@ -1,6 +1,8 @@
 package com.ing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,6 +10,7 @@ import com.ing.entity.Article;
 import com.ing.entity.Member;
 import com.ing.entity.Scrap;
 import com.ing.repository.ScrapRepository;
+import com.ing.vo.ArticleScrapVO;
 
 /**
  * Scrap 테이블 관련 Service
@@ -43,5 +46,10 @@ public class ScrapService {
         
         return deletedRecord > 0;
     } 
+    
+    public Page<ArticleScrapVO> findScrapList(Integer memberId, Pageable pageable) {
+        
+        return scrapRepository.findScrapList(memberId, pageable);
+    }   
     
 }

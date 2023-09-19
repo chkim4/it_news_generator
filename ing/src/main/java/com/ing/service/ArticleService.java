@@ -6,8 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ing.entity.Article;
-import com.ing.entity.ArticleWithScrap;
 import com.ing.repository.ArticleRepository;
+import com.ing.vo.ArticleScrapVO;
 
 /**
  * Article 테이블 관련 Service
@@ -19,7 +19,7 @@ public class ArticleService {
     private ArticleRepository articleRepository;
     
      
-    public Page<ArticleWithScrap>findArticleWithScrap(String date, Integer memberId, Pageable pageable) {
+    public Page<ArticleScrapVO>findArticleWithScrap(String date, Integer memberId, Pageable pageable) {
         
         return articleRepository.findArticleWithScrap(date, memberId, pageable);
     }  

@@ -45,14 +45,14 @@
 	        
 	        <!-- 사용자 정보 드롭다운 -->
 	        <li class="nav-item dropdown no-arrow">
+	            <!-- 사용자 정보 보기 드롭 다운 메뉴 -->
 	            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 	                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                <span class="mr-2 d-none d-lg-inline text-gray-600 large">계정</span>
 	            </a>
-	            <!-- 사용자 정보 보기 드롭 다운 메뉴 -->
 	            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 	                aria-labelledby="userDropdown">
-	                <a class="dropdown-item" href="#">
+	                <a class="dropdown-item" href="/mypage">
 	                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-600"></i>
 	                                                 마이페이지
 	                </a>

@@ -11,6 +11,16 @@ import org.springframework.data.domain.Page;
  */
 public final class NewsUtils {
 
+    // 뉴스 영상 페이지에서 한 페이지에 출력할 기사의 개수 
+    public static final int VIDEO_PAGE_SIZE = 5;
+    
+    // 뉴스 요약 페이지에서 한 페이지에 출력할 기사의 개수 
+    public static final int SUMMARY_PAGE_SIZE = 10;
+    
+    // 관련된 모든 페이지 하단에 표시할 페이지 개수  (ex. 10일 경우 하단 페이지 하단: 1~10, 11 ~ 20,...) 
+    public static final int DEFAULT_PAGE_UNIT = 10;
+    
+    
     /**
      * <pre>
      * Pagination에 필요한 데이터를 HashMap으로 반환 <br>
