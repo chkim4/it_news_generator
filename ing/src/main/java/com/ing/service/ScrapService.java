@@ -47,7 +47,7 @@ public class ScrapService {
         return deletedRecord > 0;
     } 
     
-    public Page<ArticleScrapVO> findScrapList(Integer memberId, Pageable pageable) {
+    public Page<ArticleScrapVO> findScrapList(Integer memberId, Pageable pageable){
         
         return scrapRepository.findScrapList(memberId, pageable);
     }   

@@ -1,7 +1,5 @@
 package com.ing.vo;
 
-import lombok.ToString;
-
 /**
  * 뉴스 요약 페이지에서 사용할 Article 테이블 내 필드 일부
  */

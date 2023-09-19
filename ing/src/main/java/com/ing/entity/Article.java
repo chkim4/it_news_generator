@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +42,7 @@ public class Article {
     @Column(name = "created_at")
     private LocalDate createdAt; 
     
-    @OneToMany(mappedBy="article")
+    @OneToMany(mappedBy="article", fetch = FetchType.LAZY)
     private List<Scrap> scrap;
 
 }

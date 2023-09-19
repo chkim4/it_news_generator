@@ -24,7 +24,7 @@
                 <%@ include file = "layout/mypage-table.jsp" %>
                 
                 <!-- 화면 최하단 페이지 이동 버튼 -->
-                <%@ include file = "layout/pagination.jsp" %>
+                <%@ include file = "layout/mypage-pagination.jsp" %>
              </div>
             </div>
         </div>

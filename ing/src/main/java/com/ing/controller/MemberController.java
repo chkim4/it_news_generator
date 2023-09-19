@@ -69,23 +69,17 @@ public class MemberController {
 
     }
     
-    // 메인 페이지로 이동
-    @GetMapping(value = "/main")
-    public String main() {
-        return "main";
-    }
-
     // 마이 페이지로 이동
     @GetMapping(value = "/mypage")
-    public String mypage(Model model, @PageableDefault(size = NewsUtils.SUMMARY_PAGE_SIZE) Pageable pageable) {
+    public String mypage(Model model, @PageableDefault(size = 10) Pageable pageable) throws Exception{
         
         String defaultUrl = "/mypage";
  
         int memberId = Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName());
-        
+       
         Page<ArticleScrapVO> page = scrapService.findScrapList(memberId, pageable);
         
-        List<ArticleScrapVO> articles = page.getContent();
+        List<ArticleScrapVO> articles = page.getContent();   
         
         model.addAllAttributes(NewsUtils.getPaginationData(page, NewsUtils.DEFAULT_PAGE_UNIT, defaultUrl));  
         model.addAttribute("articles", articles);
@@ -93,5 +87,11 @@ public class MemberController {
         return "mypage";
     } 
     
+    // 로그아웃. SCRF 공격을 예방하기 위해 POST로 지정. 자세한 건 Spring Security의 HttpSecurity.logoutUrl 참고 
+    @PostMapping(value = "/logout")
+    public String logout() {
+       
+        return "redirect:/login";
+    }
 
 }

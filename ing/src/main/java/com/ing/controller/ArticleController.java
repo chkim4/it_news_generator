@@ -29,8 +29,6 @@ import com.ing.vo.ArticleScrapVO;
  */
 @Controller
 public class ArticleController {
-    
-   
 
     @Autowired
     ArticleService articleService;
@@ -88,12 +86,12 @@ public class ArticleController {
                defaultUrl = "/news-today-api";
                
                // 한 페이지 당 출력하는 기사 개수를 VIDEO_PAGE_SIZE 개로 조정하기 위함
-               PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), NewsUtils.VIDEO_PAGE_SIZE);
+               PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), NewsUtils.VIDEO_PAGE_SIZE);               
                Page<ArticleScrapVO> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageRequest);
                List<ArticleScrapVO> articles = page.getContent();
           
                if (!articles.isEmpty()) {           
-                   
+
                    ObjectMapper mapper = new ObjectMapper();                   
                    String articlesJson = mapper.writeValueAsString(articles);
 
@@ -110,18 +108,17 @@ public class ArticleController {
         // 뉴스 요약 페이지
         else { 
           
-            defaultUrl = "/news?date="+ requestDateStr;
+            defaultUrl = "/news?date="+ requestDateStr; 
+            
             Page<ArticleScrapVO> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageable);
             List<ArticleScrapVO> articles = page.getContent();
-                      
-         
+                              
             // 해당 일자에 기사가 있을 경우 뉴스 요약 페이지 (news-summary) 로 이동
             if (!articles.isEmpty()) {                
                 model.addAttribute("articles", articles);
                 model.addAttribute("date", requestDateStr);
                 model.addAllAttributes(NewsUtils.getPaginationData(page, NewsUtils.DEFAULT_PAGE_UNIT, defaultUrl));
                 
-
                 view = "news-summary";
             }
         } 

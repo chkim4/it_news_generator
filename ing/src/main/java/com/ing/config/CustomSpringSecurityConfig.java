@@ -39,6 +39,7 @@ public class CustomSpringSecurityConfig {
                 .permitAll()
             .and()
                 .logout()
+                .logoutUrl("/logout")
             .and()
                 .cors().disable()        
                 .csrf().disable()        
