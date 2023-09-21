@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,8 +63,7 @@ public class MemberController {
     // 회원 가입 로직 처리
     @PostMapping(value = "/register")
     public String register(@ModelAttribute Member member, Model model) throws Exception{
-        
-        System.out.println("회원 가입 시작");
+       
         
         String pass = pwEncoder.encode(member.getPass());
         member.setPass(pass); 
@@ -77,7 +77,9 @@ public class MemberController {
             view = "redirect:/news";
             
             // SpringContextHolder에 회원 가입을 완료한 사용자 정보 추가
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(member.getMemberId(), member.getPass());    
+            UserDetails registeredUser = memberService.loadById(member.getMemberId());
+
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(registeredUser, member.getPass());    
             Authentication authentication = authToken;
             SecurityContextHolder.getContext().setAuthentication(authentication);
 

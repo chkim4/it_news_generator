@@ -27,7 +27,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     /**
      * 인증 방법 <br>
      * 1. 로그인 시: 사용자가 입력한 (login.jsp에서 보낸) email과 pass를 바탕으로 실행 <br>
-     * 2. 로그인 이후 인증: 사용자의 memberId (기본키)를 통해 인증 <br>
+     * 2. 로그인 이후 인증: 사용자의 memberId (PK)를 통해 인증 <br>
      * 
      * @param authentication 사용자가 제출한 인증 정보 (여기 있는 정보를 확인하여 인증 여부를 결정함)
      * @return 인증 후 생성된 UsernamePasswordAuthenticationToken
