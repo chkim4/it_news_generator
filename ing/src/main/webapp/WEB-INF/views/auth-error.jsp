@@ -22,6 +22,9 @@
 </head>
 
 <body> 
+    <div class="text-center"> 
+        <img class="error-img" src="img/x.png" alt = "에러 아이콘" />
+    </div>
 	<div class = "error-msg-div">
 	    죄송합니다. <br> 
 	    인증 과정에 문제가 발생했습니다. <br>

@@ -17,7 +17,7 @@
         <%@ include file = "layout/nav.jsp" %>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">      
-                <h1 class="h3 mb-4 text-gray-800">뉴스 영상</h1>
+                <h1 class="h3 mb-4 text-gray-800">오늘 뉴스 영상</h1>
                 <div class = "video-wrapper">
                   <video controls preload = "auto">
 	                   <source src="${location}" type = "video/mp4">

@@ -6,3 +6,17 @@
   background-color: var(--theme-color);
   height: 100%;
 }
+
+a[class="nav-link white"]{
+	background-color: white;
+	color: black;
+	
+}
+span[class= "nav-text theme"]{
+	color: var(--theme-color);
+}
+
+.week-move-icon{
+	filter: invert(82%) sepia(76%) saturate(0%) hue-rotate(202deg) brightness(106%) contrast(103%);
+}
+

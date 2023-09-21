@@ -2,6 +2,7 @@ package com.ing.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ing.service.ArticleService;
 import com.ing.service.VideoService;
+import com.ing.utils.MemberUtils;
 import com.ing.utils.NewsUtils;
 import com.ing.vo.ArticleScrapVO;
 
@@ -36,6 +37,9 @@ public class ArticleController {
     @Autowired
     VideoService videoService;
     
+    // 내비게이션에 표시할 기사 개수
+    private static int NAV_ARTICLES = 7;
+    
     /** 
      * <pre>
      * 메인 페이지 호출 메소드
@@ -46,6 +50,7 @@ public class ArticleController {
      * </pre>
      * 
      * @param date: 사용자가 요청한 날짯값
+     * @param base: 사용자가 이전에 요청한 날짯값. 이번 요청으로 내비게이션 내 날짜값을 갱신할지 판단  
      * @param model: 데이터 전송을 위한 객체
      * @param pageable: pagination 설정을 위한 객체
      * @return 위 조건에 따라 이동할 페이지 이름
@@ -55,26 +60,35 @@ public class ArticleController {
     @GetMapping(value = "/news")
     public String main(
             @RequestParam(value = "date" , required = false) String date,
+            @RequestParam(value = "base" , required = false) String base,
             Model model, @PageableDefault(size = NewsUtils.SUMMARY_PAGE_SIZE) Pageable pageable) throws DateTimeParseException, JsonProcessingException { 
         
         Boolean isToday = false;
         LocalDate requestDate = null; 
         String view = "news-no";
         String defaultUrl = "";
-        int memberId = Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName());
+        int memberId = MemberUtils.getMemberId();
+        
+        LocalDate today = LocalDate.now();
         
         if (date == null) {
             isToday = true;
-            requestDate = LocalDate.now();
+            requestDate = today;
         }
         else {
             requestDate = LocalDate.parse(date);
-            isToday = LocalDate.now().isEqual(requestDate);       
+            isToday = today.isEqual(requestDate);       
         }
         
-        // 뉴스 영상 페이지와 뉴스 요약 페이지 내 공통 요소
+        /*
+         *  뉴스 영상 페이지와 뉴스 요약 페이지 내 공통 요소
+         *  NAV_ARTICLES: 내비게이션에 표시할 기사 개수
+         *  requestDateStr: 화면에 출력할 뉴스 날짜, 내비게이션에서 선택한 날짜 확인할 때도 사용
+         */
         String requestDateStr = requestDate.toString(); 
-            
+        model.addAttribute("NAV_ARTICLES", NAV_ARTICLES);
+        model.addAttribute("requestDateStr", requestDateStr);
+        
         // 뉴스 영상 페이지 (오늘 뉴스)
         if(isToday) {
            String location = videoService.findLocationByCreatedAt(requestDate.toString());
@@ -120,8 +134,38 @@ public class ArticleController {
                 model.addAllAttributes(NewsUtils.getPaginationData(page, NewsUtils.DEFAULT_PAGE_UNIT, defaultUrl));
                 
                 view = "news-summary";
+            
             }
-        } 
+            
+            /* 
+             * 내비게이션 내 날짯값을 갱신할지 판단  (layout/nav.jsp 참고)
+             * 갱신 조건
+             *   1. 사용자가 url 쿼리스트링에서 'base' 키를 지웠을 때
+             *   2. 다음 주 뉴스 조회 버튼 누를 때: diffFromBase > 0
+             *   3. 이전 주 뉴스 조회 버튼 누를 때: diffFromBase <= -1*NAV_ARTICLES
+             * 
+             * cf. 오늘 뉴스 요청 시에는 nav.jsp에 lastDate를 보내지 않음 -> nav.jsp에서 lastDate를 오늘로 설정
+             */                    
+            if (base != null) {
+                LocalDate baseDate =  LocalDate.parse(base);
+                
+                long diffFromBase = baseDate.until(requestDate, ChronoUnit.DAYS);
+                
+                if(diffFromBase > 0 || diffFromBase <= -1*NAV_ARTICLES) {
+                     model.addAttribute("lastDate", requestDate);
+                 }
+                 else {
+                     model.addAttribute("lastDate", baseDate);
+                }               
+            } 
+            
+            // 사용자가 url 쿼리스트링에서 'base' 키를 지웠을 때
+            else {
+                model.addAttribute("lastDate", requestDate);
+            }   
+
+        } // 뉴스 요약 페이지 끝  
+        
         return view;
     } 
         
@@ -144,7 +188,7 @@ public class ArticleController {
     
         LocalDate requestDate = LocalDate.parse(date); 
         String requestDateStr = requestDate.toString(); 
-        int memberId = Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName());
+        int memberId = MemberUtils.getMemberId();
               
         // NewsUtils.getPaginationData 참고
         String defaultUrl = "/news-today-api?date="+ requestDateStr;

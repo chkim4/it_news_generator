@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.ing.entity.Member;
 import com.ing.service.MemberService;
 import com.ing.service.ScrapService;
+import com.ing.utils.MemberUtils;
 import com.ing.utils.NewsUtils;
 import com.ing.vo.ArticleScrapVO;
 
@@ -37,8 +39,8 @@ public class MemberController {
 
     // 로그인 페이지로 이동
     @GetMapping(value = "/login")
-    public String loginPage() {
-       
+    public String loginPage(@AuthenticationPrincipal UserDetails userDetails) {
+        
         return "login";
     }
 
@@ -71,11 +73,14 @@ public class MemberController {
     
     // 마이 페이지로 이동
     @GetMapping(value = "/mypage")
-    public String mypage(Model model, @PageableDefault(size = 10) Pageable pageable) throws Exception{
+    public String mypage(Model model, @PageableDefault(size = 10) Pageable pageable,
+            @AuthenticationPrincipal UserDetails userDetails) throws Exception{
         
         String defaultUrl = "/mypage";
  
-        int memberId = Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName());
+        int memberId = Integer.parseInt(userDetails.getUsername());
+        
+        System.out.println("memberId in mypage: " + memberId);
        
         Page<ArticleScrapVO> page = scrapService.findScrapList(memberId, pageable);
         

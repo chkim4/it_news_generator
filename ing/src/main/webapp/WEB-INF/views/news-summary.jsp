@@ -19,7 +19,7 @@
         <%@ include file = "layout/nav.jsp" %>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">      
-                <h1 class="h3 mb-4 text-gray-800">뉴스 요약</h1>
+                <h1 class="h3 mb-4 text-gray-800">${requestDateStr} 뉴스 요약</h1>
                 <!-- 기사 요약 테이블 -->           
                 <%@ include file = "layout/news-table.jsp" %>
                 

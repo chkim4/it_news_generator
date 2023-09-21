@@ -2,6 +2,9 @@
 
 @import 'common.css';
 
+h1[class="h3 mb-4 text-gray-800"]{
+    text-align: center;
+}
 
 .video-wrapper {
     width: 100%; 

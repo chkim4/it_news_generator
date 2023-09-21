@@ -1,7 +1,6 @@
 package com.ing.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.ing.entity.Scrap;
@@ -30,7 +29,7 @@ public final class ScrapUtils {
      */
     public Scrap getScrapInstance(int articleId) {
         
-        int memberId = Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName());
+       int memberId = MemberUtils.getMemberId();
         
         Scrap scrap = Scrap.builder()
                             .member(memberService.findByMemberId(memberId))
