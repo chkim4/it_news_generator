@@ -1,4 +1,7 @@
- <!-- 화면 최하단 페이지 이동 버튼(누를 시 새로운 페이지 요청. 페이지 로딩O) -->
+<!-- 
+뉴스 요약 페이지 화면 최하단에 있는 페이지 이동 버튼(누를 시 새로운 페이지 요청. 페이지 로딩O. Scriptlet으로 생성)
+각 변수에 대한 설명은 NewsUtils.java 내 getPaginationData 메소드 참고
+-->
  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

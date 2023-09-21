@@ -1,5 +1,5 @@
 <!-- 
-   기사 정보 출력 화면 (페이지 로딩 없이 출력하기 위해 제작)     
+    오늘 뉴스 페이지에서 사용하는 기사 목록 테이블 (JavaScript로 생성)
 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -8,7 +8,6 @@
            uri="http://java.sun.com/jstl/core_rt" %>
 
 <head>  
-    <%@ include file = "../cdn/lib-pagination-api.jsp" %>
     <link rel="stylesheet" href="css/layout/pagination.css">
 </head>
 

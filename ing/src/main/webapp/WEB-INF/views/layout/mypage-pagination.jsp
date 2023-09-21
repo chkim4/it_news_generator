@@ -1,4 +1,6 @@
- <!-- 화면 최하단 페이지 이동 버튼(누를 시 새로운 페이지 요청. 페이지 로딩O) -->
+<!-- 
+     마이페이지 최하단에 있는 페이지 이동 버튼(누를 시 새로운 페이지 요청. 페이지 리로딩O) 
+-->
  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -28,7 +30,7 @@
      <li class="page-item">
          <a class="page-link" href="<%=previousPageURL%>" aria-label="Previous">
            <span aria-hidden="true">&laquo;</span>
-           <span class="sr-only">Previous</span>
+           <span class="sr-only">이전 페이지 세트</span>
          </a>
      </li>              
  <% }%> 
@@ -49,7 +51,7 @@
        <li class="page-item">
           <a class="page-link" href="<%=nextPageURL%>" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
+              <span class="sr-only">다음 페이지 세트</span>
           </a>
        </li>                    
  <%}%>                       

@@ -18,7 +18,10 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
     
-     
+    /*
+     *  사용자가 요청한 날짜의 기사 목록과 기사별 스크랩 여부 확인을 위해 Article과 Scrap Entity 조인 
+     *  자세한 건 articleRepository.findArticleWithScrap 참고
+     */
     public Page<ArticleScrapVO>findArticleWithScrap(String date, Integer memberId, Pageable pageable) {
         
         return articleRepository.findArticleWithScrap(date, memberId, pageable);

@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +40,7 @@ public class MemberController {
 
     // 로그인 페이지로 이동
     @GetMapping(value = "/login")
-    public String loginPage(@AuthenticationPrincipal UserDetails userDetails) {
+    public String loginPage() {
         
         return "login";
     }
@@ -60,28 +61,41 @@ public class MemberController {
     
     // 회원 가입 로직 처리
     @PostMapping(value = "/register")
-    public String register(@ModelAttribute Member member) {
+    public String register(@ModelAttribute Member member, Model model) throws Exception{
+        
+        System.out.println("회원 가입 시작");
         
         String pass = pwEncoder.encode(member.getPass());
         member.setPass(pass); 
         
-        memberService.register(member);
-        
-        return "main";
+        String view = "auth-error";
+  
+        if (!memberService.register(member)) {
+            model.addAttribute("msg", "회원 가입에 실패했습니다. <br> 아래 링크를 통해 로그인 페이지 -> 회원가입 페이지로 이동하여 다시 시도해주십시오.");
+        }
+        else {
+            view = "redirect:/news";
+            
+            // SpringContextHolder에 회원 가입을 완료한 사용자 정보 추가
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(member.getMemberId(), member.getPass());    
+            Authentication authentication = authToken;
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        }
+
+        return view;
     }
     
-    // 마이 페이지로 이동
+    /* 마이 페이지로 이동
+     * 스크랩한 기사 조회 포함
+     */
     @GetMapping(value = "/mypage")
-    public String mypage(Model model, @PageableDefault(size = 10) Pageable pageable,
-            @AuthenticationPrincipal UserDetails userDetails) throws Exception{
+    public String mypage(Model model, @PageableDefault(size = 10) Pageable pageable) throws Exception{
         
         String defaultUrl = "/mypage";
  
-        int memberId = Integer.parseInt(userDetails.getUsername());
+        int memberId = MemberUtils.getMemberId();
         
-        System.out.println("memberId in mypage: " + memberId);
-       
         Page<ArticleScrapVO> page = scrapService.findScrapList(memberId, pageable);
         
         List<ArticleScrapVO> articles = page.getContent();   
@@ -92,7 +106,7 @@ public class MemberController {
         return "mypage";
     } 
     
-    // 로그아웃. SCRF 공격을 예방하기 위해 POST로 지정. 자세한 건 Spring Security의 HttpSecurity.logoutUrl 참고 
+    // 로그아웃. CSRF 공격을 예방하기 위해 POST로 지정. 자세한 건 Spring Security의 HttpSecurity.logoutUrl 참고 
     @PostMapping(value = "/logout")
     public String logout() {
        

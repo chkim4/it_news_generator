@@ -1,6 +1,6 @@
 <!-- 
-     오류 발생 시 화면에 공통 요소 ( 'X' 아이콘과 문구) 
- -->
+     오류 발생 시 화면에 출력하는 공통 요소 ( 'X' 아이콘과 문구) 
+-->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -23,7 +23,5 @@
        }
    %>
 
-  <%=msg%>
-  <br/>
-  <a href = "/news">오늘 뉴스로 이동</a>      
+  <%=msg%>      
 </div>

@@ -1,8 +1,7 @@
 <!-- 
      header, nav, footer를 포함하는 빈 페이지
           복사하여 사용할 때는 'include file = xx.jsp %>'에서 xx에 알맞는 경로 변경
-
- -->
+-->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

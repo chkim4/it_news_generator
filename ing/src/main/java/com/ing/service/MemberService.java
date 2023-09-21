@@ -22,7 +22,7 @@ public class MemberService {
     private MemberRepository memberRepository;
     
     /**
-     * CustomAuthenticationProvider에서 로그인을 통해 인증하려는 사용자의 정보를 DB에서 조회 (기존 인증 X) <br>
+     * CustomAuthenticationProvider에서 로그인을 통해 인증하려는 사용자의 정보를 DB에서 조회 (기존에 인증이 되어 있지 않은 사용자) <br>
      * findByEmail은 Member 타입을 반환하지만, 이 메소드는 UserDetails 타입을 반환하므로 별도 정의
      * 
      * @param email 사용자가 로그인을 통해 입력한 이메일 주소
@@ -67,7 +67,7 @@ public class MemberService {
      * @return 회원 가입 성공 여부를 나타내는 Boolean 값
      */ 
     public Boolean register(Member member) {
-        
+  
         return memberRepository.save(member) != null;
     }
 
@@ -83,7 +83,13 @@ public class MemberService {
         return member;    
     } 
     
-    
+    /**
+     * 주어진 memberId 값을 이용하여 사용자 조회
+     * 스크랩 삭제로 사용자를 조회할 때 사용
+     * 
+     * @param memberId Controller에서 전달 받은 memberId 
+     * @return memberId를 DB에서 조회한 결과 
+     */ 
     public Member findByMemberId(int memberId) {
         return memberRepository.findByMemberId(memberId);
     }

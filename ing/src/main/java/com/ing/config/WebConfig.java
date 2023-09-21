@@ -9,12 +9,13 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Java 기반의 Spring MVC 설정 커스터마이징 <br>
+ * Spring MVC 설정 커스터마이징 <br>
  * ex. 이미지, js, css, 영상 등 정적 자원 관련 설정
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-   
+    
+    // applications.properties에서 설정한 영상 저장 경로 할당
     @Value("${custom.video.location}")
     private String videoLocation; 
     

@@ -22,7 +22,12 @@ public interface ScrapRepository extends JpaRepository<Scrap, Integer> {
     // 삭제한 레코드 개수 반환
     public Long deleteScrapByMemberAndArticle(Member member, Article article);
     
-    
+    /**
+     * 사용자가 스크랩한 전체 기사 조회를 위해 Article과 Scrap Entity 조인
+     * @param memberId: 요청한 사용자를 식별하는 PK
+     * @param pageable: pagination 설정을 위한 객체
+     * @return 사용자가 스크랩한 기사 목록
+     */
     @Query(value = "Select a.articleId AS articleId, a.ord AS ord, a.summary AS summary, " + 
             "a.url AS url, s.member.memberId AS memberId " +
             "FROM scrap s " + 

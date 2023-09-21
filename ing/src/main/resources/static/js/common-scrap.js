@@ -1,5 +1,5 @@
 /**
- * 스크랩 관련 공통 모듈 정의
+ * 스크랩 관련 공통 함수 정의
  */
 
 /**
@@ -26,8 +26,8 @@ function insertScrap(articleId, element){
 
 /**
  * 스크랩 삭제
- * @param {Number} articleId - 스크랩을 추가할 기사 (cf. 사용자는 Spring Security를 통해 식별)
- * @param {Object} element - 스크랩 추가 후 삭제 버튼으로 바뀔 버튼 요소
+ * @param {Number} articleId - 스크랩을 삭제할 기사 (cf. 사용자 정보는 Spring Security를 통해 식별)
+ * @param {Object} element - 스크랩 추가 후 추가 버튼으로 바뀔 버튼 요소
  */
 function deleteScrap(articleId, element){
     
@@ -47,8 +47,8 @@ function deleteScrap(articleId, element){
  }
 
 /**
- * 스크랩 버튼 변경 (스크랩 <-> 삭제). 스크랩 삭제와 추가 버튼 후 바뀌는 함수 간 중복이 많아서 별도 정의 
- * @param {Number} articleId - 스크랩 상태를 변경할 기사 (cf. 사용자는 Spring Security를 통해 식별)
+ * 스크랩 추가 혹은 삭제 후 버튼 바꾸는 함수 (추가 <-> 삭제) 
+ * @param {Number} articleId - 스크랩 상태를 변경할 기사 (cf. 사용자 정보는 Spring Security를 통해 식별)
  * @param {Object} element - 스크랩 상태를 변경할 버튼 요소
  * @param {String} buttonType - "insert": 스크랩 추가 버튼으로 변경 / "delete": 스크랩 제거 버튼으로 변경
  */ 

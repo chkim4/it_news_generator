@@ -1,4 +1,6 @@
-<!-- 뉴스 요약 페이지: 오늘 날짜가 아닌 뉴스를 요약 형태로 출력 (페이지 전환 시 리로드 O)-->
+<!-- 
+뉴스 요약 페이지: 오늘 날짜가 아닌 뉴스를 요약 형태로 출력 (페이지 전환 시 리로드 O)
+-->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,6 +12,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>뉴스 요약 페이지</title>
+	<%@ include file = "./cdn/lib-axios.jsp" %>
 	<link rel="stylesheet" href="css/news-summary.css">
 </head>
 <body id = "page-top">

@@ -1,9 +1,13 @@
 package com.ing.vo;
 
 /**
- * 뉴스 요약 페이지에서 사용할 Article 테이블 내 필드 일부
+ * <pre>
+ * Article과 Scrap Entity의 조인 결과를 저장할 때 사용하는 클래스. 
+ * 다음 두 목적으로 사용함
+ *   1. 특정 날짜의 기사 목록을 요청한 사용자가 기사별로 스크랩했는 지 확인 
+ *   2. 사용자가 스크랩한 기사 목록 조회 
+ * </pre>
  */
-
 public interface ArticleScrapVO {
     
     public Integer getArticleId();

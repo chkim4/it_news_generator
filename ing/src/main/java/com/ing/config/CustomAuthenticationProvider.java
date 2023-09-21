@@ -79,7 +79,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     /**
-     * authenticate의 동작 여부 결정
+     * 위에서 정의한 authenticate 메소드의 동작 여부 결정
      * 
      * @param authentication 사용자로부터 받은 인증 정보
      * @return authenticate 메소드 동작 여부를 결정하는 Boolean 값 

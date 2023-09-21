@@ -28,9 +28,9 @@ public final class NewsUtils {
      *    ex. 한 화면에 10개 페이지 이동 버튼 출력 시: 1~10 페이지 이동 버튼들이 한 세트, 11~20 페이지 이동 버튼이 다른 세트 
      * 
      * 2. Spring Pagination은 0페이지부터 시작. 그런데 화면 하단에는 1페이지부터 기재하므로 둘의 차이가 있음.
-     *    또한 여기 기재된 모든 페이지는 Spring Pagination 값을 적용        
+     *    여기에 기재한 모든 페이지는 Spring Pagination 값을 적용        
      *       
-     * 3. 아래는 반환하는 HashMap의 key: value (key: String / value: Object)
+     * 3. 아래는 반환하는 HashMap의 key: value 쌍(key: String / value: Object)
      *    firstPage: 현재 화면의 세트 내 첫 페이지 (int)
      *        ex. 현재 페이지: 3, 세트: 1~10페이지일 경우 1에 해당. Spring Pagination 기준이므로 실제로는 0
      *      
@@ -41,9 +41,9 @@ public final class NewsUtils {
      *        ex. 현재 페이지: 3, 세트: 1~10페이지일 경우 10에 해당. Spring Pagination 기준이므로 실제로는 9
      *      
      *    isNextSetExists: 현재 세트 기준으로 다음 세트 존재 여부 (Boolean)
-     *        화면에 다음 세트로 이동하는 버튼 출력 여부 판단 시 활용
+     *        화면에 다음 세트로 이동하는 버튼을 출력할지 판단할 때 사용
      *    
-     *    defaultUrl: 페이지 클릭 시 이동할 URL 중 page 쿼리스트링만 제외
+     *    defaultUrl: 페이지 클릭 시 이동할 URL의 쿼리스트링 중 page 키 값만 제외
      *        ex. "/news?date=2017-01-13&page=7"로 이동하고자 하는 경우
      *            defaultUrl = "/news?date=2017-01-13"으로 할당
      * 
@@ -51,7 +51,7 @@ public final class NewsUtils {
      * @param <T>
      * 
      * @param page: pagination에 필요한 데이터를 추출하고자 하는 page 객체 
-     * @param pageUnit: 한 페이지에 출력할 기사 개수
+     * @param pageUnit: 한 세트에 표시할 페이지 수 (ex. pageUnit = 10 -> 화면 하단에 1~10 페이지 표시)
      * @return pagination에 필요한 데이터를 저장한 HashMap
      */
     public static <T> HashMap<String, Object> getPaginationData(Page<T> page, int pageUnit, String defaultUrl){

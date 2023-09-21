@@ -1,4 +1,7 @@
-<!-- 마이 페이지: 스크랩한 기사 출력 등 -->
+<!-- 
+    마이 페이지
+    스크랩한 기사 출력 등
+-->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,6 +13,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>마이 페이지</title>
+	<%@ include file = "./cdn/lib-axios.jsp" %>
 	<link rel="stylesheet" href="css/news-summary.css">
 </head>
 <body id = "page-top">

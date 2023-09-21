@@ -35,7 +35,7 @@ public class ScrapController {
     /**
      * 스크랩 추가 
      * 
-     * @param articleId: 스크랩하려는 기사의 PK 값 (cf. memberId는 Spring Security의 ContextHolder 활용)
+     * @param articleId: 스크랩하려는 기사의 PK 값 (cf. memberId는 Spring Security의 ContextHolder를 통해 식별)
      * @return 스크랩 저장 여부
      * @throws NumberFormatException - memberId, articleId를 String에서 Integer로 변환하는 중에 발생할 수 있는 예외
      */
@@ -51,8 +51,8 @@ public class ScrapController {
     /**
      * 스크랩 삭제 
      * 
-     * @param articleId: 스크랩하려는 기사의 PK 값 (cf. memberId는 Spring Security의 ContextHolder 활용)
-     * @return 스크랩 저장 여부
+     * @param articleId: 스크랩하려는 기사의 PK 값 (cf. memberId는 Spring Security의 ContextHolder를 통해 식별)
+     * @return 스크랩 삭제 여부
      * @throws NumberFormatException - memberId, articleId를 String에서 Integer로 변환하는 중에 발생할 수 있는 예외
      */
     @DeleteMapping(value = "/scrap")
@@ -63,7 +63,6 @@ public class ScrapController {
         
         Scrap scrap = scrapUtils.getScrapInstance(articleId);
         
-        return scrapService.deleteScrapByMemberAndArticle(scrap.getMember(), scrap.getArticle());
-        
+        return scrapService.deleteScrapByMemberAndArticle(scrap.getMember(), scrap.getArticle());       
     }
 }

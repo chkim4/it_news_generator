@@ -1,3 +1,7 @@
+<!-- 
+    화면 상단 헤더
+-->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -7,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
-    <title>header</title>
+    <title>헤더</title>
     
     <%@ include file = "../cdn/lib-common.jsp" %>
     <link rel="stylesheet" href="css/layout/header.css">

@@ -44,13 +44,14 @@ public class ArticleController {
      * <pre>
      * 메인 페이지 호출 메소드
      *   0. 날짯값: 쿼리스트링을 통해 할당한 값 (ex. 'news?date=2017-01-13'에서 '2017-01-13'이 날짯값)
-     *   1. 오늘 날짜 혹은 날짯값을 부여하지 않고 뉴스 조회 시: (오늘) 뉴스 영상 페이지 호출
+     *   1. 오늘 날짜 혹은 날짯값을 부여하지 않고 뉴스 조회 시: 오늘 뉴스 페이지 호출
      *   2. 날짯값을 부여했으나 오늘 날짜가 아닐 경우: 뉴스 요약 페이지 호출
      *   3. 해당 날짜에 뉴스가 없을 경우: 뉴스 없음 페이지 호출
      * </pre>
      * 
      * @param date: 사용자가 요청한 날짯값
-     * @param base: 사용자가 이전에 요청한 날짯값. 이번 요청으로 내비게이션 내 날짜값을 갱신할지 판단  
+     * @param base: 사용자가 이전에 요청한 날짯값. 이번 요청으로 내비게이션에 있는 날짜 목록을 갱신할지 판단하는 데 사용. 
+     *              없을 시 내비게이션에 date와 date의 (NAV_ARTICLES-1)일 전까지의 날짜 출력
      * @param model: 데이터 전송을 위한 객체
      * @param pageable: pagination 설정을 위한 객체
      * @return 위 조건에 따라 이동할 페이지 이름
@@ -81,19 +82,19 @@ public class ArticleController {
         }
         
         /*
-         *  뉴스 영상 페이지와 뉴스 요약 페이지 내 공통 요소
+         *  오늘 뉴스 페이지와 뉴스 요약 페이지 내 공통 요소
          *  NAV_ARTICLES: 내비게이션에 표시할 기사 개수
-         *  requestDateStr: 화면에 출력할 뉴스 날짜, 내비게이션에서 선택한 날짜 확인할 때도 사용
+         *  requestDateStr: 화면에 출력할 뉴스 날짜. 내비게이션에서 선택한 날짜를 확인할 때도 사용
          */
         String requestDateStr = requestDate.toString(); 
         model.addAttribute("NAV_ARTICLES", NAV_ARTICLES);
         model.addAttribute("requestDateStr", requestDateStr);
         
-        // 뉴스 영상 페이지 (오늘 뉴스)
+        // 오늘 뉴스 페이지
         if(isToday) {
            String location = videoService.findLocationByCreatedAt(requestDate.toString());
            
-           // 오늘 뉴스가 생성되었을 때만 뉴스 영상 페이지 조회
+           // 영상이 생성되었을 때만 출처 기사 목록 조회
            if(location != null) {
                view = "news-today";
                
@@ -170,12 +171,12 @@ public class ArticleController {
     } 
         
     /**
-     * 뉴스 영상 페이지 영상 하단에 있는 기사 요약 정보를 페이지 리로딩 없이 조회하기 위한 메소드
+     * 오늘 뉴스 페이지 영상 하단에 있는 기사 요약 정보를 페이지 리로딩 없이 조회하기 위한 메소드
      * 
-     * @param date: 클라이언트가 보낸 날짜 정보. 클라이언트가 23:59:59에 조회하는 등 오늘 날짜가 변경되면서 발생할 수 있는 문제를 예방하기 위함 
-     * @param requestPage: 클라이언트가 요청한 페이지
+     * @param date: 사용자가 보낸 날짜 정보. 사용자가 23:59:59에 조회하는 등 오늘 날짜가 변경되면서 발생할 수 있는 문제를 예방하기 위함 
+     * @param requestPage: 사용자가 요청한 페이지
      * @param pageable: '@GetMapping(value = "/news")'의 핸들러 메소드 참고
-     * @return 클라이언트가 요청한 조건에 알맞은 기사와 페이지네이션 정보
+     * @return 사용자가 요청한 조건에 알맞은 기사와 페이지네이션 정보
      * @throws DateTimeParseException - '@GetMapping(value = "/news")'의 핸들러 메소드 참고
      * @throws JsonProcessingException - '@GetMapping(value = "/news")'의 핸들러 메소드 참고
      */
@@ -193,7 +194,7 @@ public class ArticleController {
         // NewsUtils.getPaginationData 참고
         String defaultUrl = "/news-today-api?date="+ requestDateStr;
         
-        // 클라이언트가 요청한 기사 및 페이지네이션 정보
+        // 사용자가 요청한 기사 및 페이지네이션 정보
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
             
         Page<ArticleScrapVO> page = articleService.findArticleWithScrap(requestDateStr, memberId, pageable);
@@ -206,7 +207,7 @@ public class ArticleController {
         resultMap.putAll(NewsUtils.getPaginationData(page, NewsUtils.DEFAULT_PAGE_UNIT, defaultUrl));
         resultMap.put("articles", articlesJson);
         
-        // 클라이언트에 저장 후, 클라이언트가 요청할 때 참고할 정보
+        // pagination-api.jsp 내 페이지 이동 버튼에서 사용할 날짯값 전송
         resultMap.put("date", requestDateStr);
 
         return resultMap;    

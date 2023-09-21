@@ -20,6 +20,9 @@
                 <jsp:include page = "layout/error-component.jsp">
                     <jsp:param name = "msg" value = "죄송합니다. <br> 해당 일자의 뉴스가 없습니다." />     
                 </jsp:include>
+                <div class = "error-msg-div">
+                    <a href = "/news">오늘 뉴스로 이동</a>
+                </div>
             </div>
         </div>
     </div> 

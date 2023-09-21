@@ -1,5 +1,5 @@
 <!-- 
-오늘 뉴스 영상을 띄우는 페이지
+오늘 뉴스 페이지: 오늘 뉴스 영상과 출처 기사 목록을 출력하는 페이지 (페이지 전환 시 리로드 X)
  -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,6 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>뉴스 영상 페이지</title>
+	<%@ include file = "./cdn/lib-axios.jsp" %>
 	<link rel="stylesheet" href="css/news-today.css">
 </head>
 <body id = "page-top">

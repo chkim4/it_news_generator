@@ -1,7 +1,9 @@
+<!-- 
+    화면 좌측 내비게이션
+-->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-
 
 <!DOCTYPE html>
 <html>
@@ -39,7 +41,7 @@
        </li>
     <%
     for (int i= (NAV_ARTICLES-1) ; i >= 0; i--) {
-        String date = lastDate.plusDays(-1*i).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString(); 
+        String date = lastDate.plusDays(-1*i).toString(); 
         
         String linkClassName = "nav-link"; 
         String textClassName = "nav-text";

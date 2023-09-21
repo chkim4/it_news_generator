@@ -1,8 +1,7 @@
 <!-- 
      header, nav, footer를 포함하는 빈 페이지
           복사하여 사용하기 위함
-
- -->
+-->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

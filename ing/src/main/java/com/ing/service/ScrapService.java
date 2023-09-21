@@ -24,7 +24,7 @@ public class ScrapService {
     /**
      * 스크랩 정보 저장
      * 
-     * @param scrap: Scrap 테이블에 저장하고자 하는 Entity (PK가 없어야 insert Id 체크 없이 INSERT 연산 수행)
+     * @param scrap: Scrap 테이블에 저장하고자 하는 Entity (PK가 없어야 JPA가 DB에서 기존 데이터 유무를 확인하지 않고 INSERT 연산 수행)
      * @return 스크랩 저장 성공 여부 (save 메소드 실행 완료 후 반환되는 Entity에는 PK 값이 지정되는 점을 활용)
      */
     public Boolean insertScrap(Scrap scrap){       
@@ -47,6 +47,9 @@ public class ScrapService {
         return deletedRecord > 0;
     } 
     
+    /* 사용자가 스크랩한 전체 기사 조회를 위해 Article과 Scrap Entity 조인. 
+     * 자세한 건 scrapRepository.findScrapList 참고
+     */
     public Page<ArticleScrapVO> findScrapList(Integer memberId, Pageable pageable){
         
         return scrapRepository.findScrapList(memberId, pageable);
