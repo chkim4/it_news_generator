@@ -20,29 +20,27 @@
 
 * 최근 [멀티캠퍼스](https://event.multicampus.com/backend)에서 보조강사 근무를 마쳤기에 당시 사용한 기술 스택으로 프로젝트를 제작하고 싶었습니다. 
 
-<br/>
-
-* 백엔드
+* Back-end
   * Java 8
   * SpringBoot 2.7
   * Spring Security 2.7
   * Maven 2
   * JPA 2.7
 
-* 데이터베이스
+* Database
   * Oracle 11g
 
-* 뉴스 생성
+* News Crawl & Summary
   * Python 3.10
   * KoBart: 기사 요약
   * BeautifulSoup: 기사 크롤링
 
-* 프론트엔드
+* Front-end
   * Axios
   * JSP
   * HTML/CSS/JavaScript
 
-* 기타
+* ETC
   * Apache Tomcat 9
   * GitHub
 
