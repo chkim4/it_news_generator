@@ -59,7 +59,7 @@
 
 * 이 [코드](https://github.com/chkim4/it_news_generator/blob/f4090f5136b2b9aa17e837086397f52fdcaadcf0/ing/src/main/java/com/ing/utils/NewsUtils.java#L57)처럼 복잡한 내용은 JavaDoc 형식에 맞추어 자세히 주석 처리하였습니다.
 
-* 이 [코드](https://github.com/chkim4/it_news_generator_data/blob/29033997aabd62a765f04e3f75167a06c316a5db/test_alters/news_summary/compare_model.py#L31)에서 [RDASS](https://kakaoenterprise.github.io/deepdive/210729) 기법을 활용하여 KoBart 모델과 API들의 문서 요약 성능을 비교하였습니다. 
+* 이 [코드](https://github.com/chkim4/it_news_generator_data/blob/29033997aabd62a765f04e3f75167a06c316a5db/test_alters/news_summary/compare_model.py#L31)에서 BERT 모델을 활용하여 KoBart 모델과 API들의 문서 요약 성능을 비교하였습니다. 
 
   * <details>
       <summary>비교 결과</summary>
