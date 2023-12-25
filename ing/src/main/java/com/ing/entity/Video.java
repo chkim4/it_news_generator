@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- *Video 테이블과의 매핑을 위한 Entity
+ * Video 테이블과의 매핑을 위한 Entity
  */
 @Builder
 @AllArgsConstructor
